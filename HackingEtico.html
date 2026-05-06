@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Hacking Ético - Sistema de Evaluación Completo</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="back-to-menu hidden" id="backToMenu" onclick="returnToMenu()">
+        <span style="font-size: 1.5em;">⬅️</span>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="brand-header">
+                <span class="brand-robot">🤖</span>
+                <span class="brand-name">Jose Academy</span>
+                <span class="brand-year">• 2026</span>
+            </div>
+            <h1>Hacking Ético</h1>
+            <p>Sistema de Evaluación Completo</p>
+            <div class="progress-container" style="display: none;" id="progressContainer">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+        </div>
+
+        <div class="mode-selection" id="modeSelection">
+            <h2>Selecciona el Modo de Práctica</h2>
+            <div class="modes-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+
+                <div class="mode-card" onclick="selectMode('ut1')" id="modeUT1">
+                    <div class="mode-icon">🎩</div>
+                    <div class="mode-title">UT-1: Introducción</div>
+                    <div class="mode-description">
+                        Perfiles de hacker, marco legal, Cyber Kill Chain, ingeniería social y principios básicos de análisis forense.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Básico
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut2')" id="modeUT2">
+                    <div class="mode-icon">🔬</div>
+                    <div class="mode-title">UT-2: Forense e Incidentes</div>
+                    <div class="mode-description">
+                        Cadena de custodia, evidencia volátil y persistente, FTK Imager, ciclo de vida del incidente y tríada CID.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Básico
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut3')" id="modeUT3">
+                    <div class="mode-icon">💾</div>
+                    <div class="mode-title">UT-3: Forense de Disco</div>
+                    <div class="mode-description">
+                        Ciclo de vida del incidente, imágenes forenses, Autopsy, SHA-256, tabla de particiones y espacio no asignado.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Intermedio
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut4')" id="modeUT4">
+                    <div class="mode-icon">🔍</div>
+                    <div class="mode-title">UT-4: Vulnerabilidades</div>
+                    <div class="mode-description">
+                        Análisis de riesgos, Nmap/Zenmap/NSE, OpenVAS, Nessus, CVSS, falsos positivos y tratamiento de riesgos.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Intermedio
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut5')" id="modeUT5">
+                    <div class="mode-icon">💣</div>
+                    <div class="mode-title">UT-5: Pentesting</div>
+                    <div class="mode-description">
+                        Metodologías, Metasploit, Burp Suite, Hydra, escalada de privilegios, persistencia y documentación PoC.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Avanzado
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut6')" id="modeUT6">
+                    <div class="mode-icon">📋</div>
+                    <div class="mode-title">UT-6: Informes</div>
+                    <div class="mode-description">
+                        Informe técnico y ejecutivo, evidencias, CVSS, black-box, Wireshark, PoC, tabla de seguimiento y mejora continua.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Avanzado
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut7')" id="modeUT7">
+                    <div class="mode-icon">🛡️</div>
+                    <div class="mode-title">UT-7: Resiliencia</div>
+                    <div class="mode-description">
+                        BCP, DRP, RPO, backups 3-2-1, Zero Trust, microsegmentación, DMZ, IDS/IPS, SIEM, SOAR y UEBA.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Avanzado
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('general')" id="modeGeneral" style="grid-column: span 3;">
+                    <div class="mode-icon">🎯</div>
+                    <div class="mode-title">Examen General de Hacking Ético</div>
+                    <div class="mode-description">
+                        Evaluación completa con todas las preguntas de las siete unidades presentadas en orden aleatorio.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>140 preguntas aleatorias</strong><br>
+                        Nivel: Completo
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="startBtn" onclick="startQuiz()" disabled>Comenzar Test</button>
+        </div>
+
+        <div class="quiz-container" id="quizContainer">
+            <div class="question" id="questionContainer">
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <div class="buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">Anterior</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="results-screen" id="resultsScreen" style="padding-bottom: 50px;">
+            <h2 style="font-size: 2em; margin-bottom: 20px;">Reporte de Evaluación</h2>
+
+            <div class="score-circle">
+                <svg width="200" height="200">
+                    <circle class="background" cx="100" cy="100" r="90"></circle>
+                    <circle class="progress" id="scoreProgress" cx="100" cy="100" r="90" stroke-dasharray="565"
+                        stroke-dashoffset="565"></circle>
+                </svg>
+                <div class="score-text" id="scoreText">0%</div>
+            </div>
+
+            <div class="stats" style="margin-bottom: 40px;">
+                <div class="stat">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correctas</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="incorrectCount">0</div>
+                    <div class="stat-label">Incorrectas</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="totalQuestions">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+
+            <div id="resultsTableContainer"></div>
+
+            <div class="buttons" style="margin-top: 40px; padding: 0 20px;">
+                <button class="btn btn-secondary" onclick="returnToMenu()">Volver al Menú</button>
+                <button class="btn btn-primary" onclick="restartSameMode()">Reintentar Test</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/preguntasHackingEtico.js"></script>
+    <script src="js/logics.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Seguridad y Alta Disponibilidad - Sistema de Evaluación Completo</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="back-to-menu hidden" id="backToMenu" onclick="returnToMenu()">
+        <span style="font-size: 1.5em;">⬅️</span>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="brand-header">
+                <span class="brand-robot">🤖</span>
+                <span class="brand-name">Jose Academy</span>
+                <span class="brand-year">• 2026</span>
+            </div>
+            <h1>Seguridad y Alta Disponibilidad</h1>
+            <p>Sistema de Evaluación Completo</p>
+            <div class="progress-container" style="display: none;" id="progressContainer">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+        </div>
+
+        <div class="mode-selection" id="modeSelection">
+            <h2>Selecciona el Modo de Práctica</h2>
+            <div class="modes-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+
+                <div class="mode-card" onclick="selectMode('ut1')" id="modeUT1">
+                    <div class="mode-icon">🛡️</div>
+                    <div class="mode-title">UT-1: Fundamentos</div>
+                    <div class="mode-description">
+                        Seguridad física y lógica, Tríada CID (Confidencialidad, Integridad, Disponibilidad) y
+                        Criptografía básica.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Básico
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut2')" id="modeUT2">
+                    <div class="mode-icon">🕵️</div>
+                    <div class="mode-title">UT-2: Amenazas</div>
+                    <div class="mode-description">
+                        Análisis de malware, fases del Cyber Kill Chain, Ingeniería social y herramientas de análisis de
+                        red.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Básico
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut3')" id="modeUT3">
+                    <div class="mode-icon">🔑</div>
+                    <div class="mode-title">UT-3: Accesos</div>
+                    <div class="mode-description">
+                        Seguridad en accesos remotos, configuración de VPN, SSH, protocolos RADIUS y servidores bastión.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Intermedio
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut4')" id="modeUT4">
+                    <div class="mode-icon">🧱</div>
+                    <div class="mode-title">UT-4: Perímetro</div>
+                    <div class="mode-description">
+                        Arquitectura de Firewalls (iptables/nftables), diseño de zonas DMZ y gestión de reglas ACL.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Intermedio
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut5')" id="modeUT5">
+                    <div class="mode-icon">🔄</div>
+                    <div class="mode-title">UT-5: Proxies</div>
+                    <div class="mode-description">
+                        Servidores Proxy (Squid), Proxies inversos, filtrado de contenido y autenticación mediante LDAP.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Intermedio
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut6')" id="modeUT6">
+                    <div class="mode-icon">🔋</div>
+                    <div class="mode-title">UT-6: Disponibilidad</div>
+                    <div class="mode-description">
+                        Alta Disponibilidad (HA), clusters, sistemas RAID, Balanceo de carga y estrategias de réplica.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Avanzado
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('ut7')" id="modeUT7">
+                    <div class="mode-icon">⚖️</div>
+                    <div class="mode-title">UT-7: Normativa</div>
+                    <div class="mode-description">
+                        Cumplimiento legal: RGPD, LOPDGDD, Esquema Nacional de Seguridad (ENS) y auditorías.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>20 preguntas</strong><br>
+                        Nivel: Avanzado
+                    </div>
+                </div>
+
+                <div class="mode-card" onclick="selectMode('general')" id="modeGeneral" style="grid-column: span 3;">
+                    <div class="mode-icon">🎯</div>
+                    <div class="mode-title">Examen General de Seguridad</div>
+                    <div class="mode-description">
+                        Evaluación completa con todas las preguntas de las siete unidades presentadas en orden
+                        aleatorio.
+                    </div>
+                    <div class="mode-stats">
+                        <strong>140 preguntas aleatorias</strong><br>
+                        Nivel: Completo
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="startBtn" onclick="startQuiz()" disabled>Comenzar Test</button>
+        </div>
+
+        <div class="quiz-container" id="quizContainer">
+            <div class="question" id="questionContainer">
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <div class="buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()">Anterior</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="results-screen" id="resultsScreen" style="padding-bottom: 50px;">
+            <h2 style="font-size: 2em; margin-bottom: 20px;">Reporte de Evaluación</h2>
+
+            <div class="score-circle">
+                <svg width="200" height="200">
+                    <circle class="background" cx="100" cy="100" r="90"></circle>
+                    <circle class="progress" id="scoreProgress" cx="100" cy="100" r="90" stroke-dasharray="565"
+                        stroke-dashoffset="565"></circle>
+                </svg>
+                <div class="score-text" id="scoreText">0%</div>
+            </div>
+
+            <div class="stats" style="margin-bottom: 40px;">
+                <div class="stat">
+                    <div class="stat-value" id="correctCount">0</div>
+                    <div class="stat-label">Correctas</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="incorrectCount">0</div>
+                    <div class="stat-label">Incorrectas</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="totalQuestions">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+
+            <div id="resultsTableContainer"></div>
+
+            <div class="buttons" style="margin-top: 40px; padding: 0 20px;">
+                <button class="btn btn-secondary" onclick="returnToMenu()">Volver al Menú</button>
+                <button class="btn btn-primary" onclick="restartSameMode()">Reintentar Test</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="js/preguntasRedes.js"></script>
+    <script src="js/logics.js"></script>
+</body>
+
+</html>
